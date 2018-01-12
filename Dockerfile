@@ -1,3 +1,4 @@
+# FROM minio/minio:latest
 FROM golang:1.9.1-alpine3.6
 
 MAINTAINER Minio Inc <dev@minio.io>
@@ -31,4 +32,10 @@ VOLUME ["/export"]
 HEALTHCHECK --interval=30s --timeout=5s \
     CMD /usr/bin/healthcheck.sh
 
+# CMD ["minio"]
+
+COPY dockerscripts/config_check_script.sh /usr/bin/config_check_script.sh
+COPY dockerscripts/config.json /tmp/config.json
+
+RUN /usr/bin/config_check_script.sh 
 CMD ["minio"]
