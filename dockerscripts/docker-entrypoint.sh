@@ -15,6 +15,22 @@
 # limitations under the License.
 #
 
+CONFIG_FILE=/root/.minio/config.json
+
+if [ $BRAINCLOUD_ACCESS_KEY ]; then
+	sed -i -e 's/ACCESS_KEY_CONV/'$BRAINCLOUD_ACCESS_KEY'/' /tmp/config.json
+	sed -i -e 's/SECRET_KEY_CONV/'$BRAINCLOUD_SECRET_KEY'/' /tmp/config.json
+else
+	sed -i -e 's/ACCESS_KEY_CONV/kakaobrain/' /tmp/config.json
+	sed -i -e 's/SECRET_KEY_CONV/kakaobrain/' /tmp/config.json
+fi 
+
+cat /tmp/config.json
+
+[ -f $CONFIG_FILE ] && echo "Config File is already exists" || (mkdir -p /root/.minio && cp /tmp/config.json /root/.minio/config.json && echo "Config File is copied")
+
+rm /tmp/config.json
+
 # If command starts with an option, prepend minio.
 if [ "${1}" != "minio" ]; then
     if [ -n "${1}" ]; then
@@ -40,4 +56,5 @@ docker_secrets_env() {
 ## Set access env from secrets if necessary.
 docker_secrets_env
 
+# run kakaobrain custom script
 exec "$@"

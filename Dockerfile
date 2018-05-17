@@ -24,6 +24,8 @@ RUN  \
 
 EXPOSE 9000
 
+COPY dockerscripts/config.json /tmp/config.json
+
 ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
 
 VOLUME ["/export"]
@@ -31,8 +33,4 @@ VOLUME ["/export"]
 HEALTHCHECK --interval=30s --timeout=5s \
     CMD /usr/bin/healthcheck.sh
 
-COPY dockerscripts/config_check_script.sh /usr/bin/config_check_script.sh
-COPY dockerscripts/config.json /tmp/config.json
-
-RUN /usr/bin/config_check_script.sh 
 CMD ["minio"]

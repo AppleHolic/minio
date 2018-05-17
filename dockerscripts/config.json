@@ -1,8 +1,8 @@
 {
 	"version": "22",
 	"credential": {
-		"accessKey": "kakaobrain",
-		"secretKey": "kakaobrain"
+		"accessKey": "ACCESS_KEY_CONV",
+		"secretKey": "SECRET_KEY_CONV"
 	},
 	"region": "",
 	"browser": "on",
